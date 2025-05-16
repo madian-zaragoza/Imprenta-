@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Producto | Imprenta Cisneros</title>
+    <link rel="shortcut icon" href="Logo/Recurso-8.ico" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+        --cisneros-blue: #2271c2;
+        --cisneros-magenta: #d6027b;
+        --cisneros-yellow: #ffd400;
+        --cisneros-orange: #f06e00;
+        --cisneros-light-blue: #62b5e5;
+    }
+    
+    body {
+        background-color: #f5f5f5;
+        font-family: 'Arial', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .header {
+        background: linear-gradient(to right, rgba(214, 245, 255, 0.88), rgba(75, 207, 255, 0.85));
+        color: white;
+        padding: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+    
+    .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo img {
+        height: 60px;
+        margin-right: 15px;
+    }
+    
+    .form-container {
+        background-color: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+    }
+    
+    .form-header {
+        position: relative;
+        margin-bottom: 35px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--cisneros-yellow);
+    }
+    
+    .form-header h2 {
+        color: var(--cisneros-blue);
+        font-weight: 600;
+    }
+    
+    .form-section {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-left: 4px solid var(--cisneros-light-blue);
+    }
+    
+    .form-section-title {
+        color: var(--cisneros-blue);
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .form-section-title i {
+        margin-right: 10px;
+        color: var(--cisneros-magenta);
+    }
+    
+    .form-label {
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 8px;
+    }
+    
+    .form-control:focus {
+        border-color: var(--cisneros-yellow);
+        box-shadow: 0 0 0 0.25rem rgba(255, 212, 0, 0.25);
+    }
+    
+    .color-picker-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .color-item {
+        position: relative;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .color-picker {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    
+    .color-picker:hover {
+        transform: scale(1.1);
+    }
+    
+    .image-preview {
+        display: none;
+        width: 150px;
+        height: 150px;
+        border: 2px dashed #ccc;
+        margin-top: 10px;
+        position: relative;
+        overflow: hidden;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+    }
+    
+    .preview-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .image-preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .btn-primary {
+        background-color: var(--cisneros-blue);
+        border-color: var(--cisneros-blue);
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #1b5c9e;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-outline-primary {
+        color: var(--cisneros-blue);
+        border-color: var(--cisneros-blue);
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: var(--cisneros-blue);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .required-indicator {
+        color: var(--cisneros-magenta);
+        margin-left: 4px;
+    }
+    
+    .actions-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+    
+    footer {
+            background: linear-gradient(to right, rgb(246, 215, 143), rgb(250, 244, 157));
+            color: #6c757d;
+            padding: 20px 40px; /* Más espacio a los lados */
+            margin-top: auto;
+            height: 100px;
+            display: flex;
+            align-items: center;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px; /* para que no se extienda demasiado en pantallas grandes */
+            margin: 0 auto; /* centra el contenedor */
+        }
+    
+    /* Responsive ajustments */
+    @media (max-width: 768px) {
+        .color-picker-container {
+            justify-content: center;
+        }
+        
+        .image-preview-container {
+            justify-content: center;
+        }
+        
+        .actions-container {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .actions-container .btn {
+            width: 100%;
+        }
+    }
+
+    .help-text {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-top: 5px;
+    }
+
+    .back-to-panel {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        padding: 8px 15px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 30px;
+        transition: all 0.3s ease;
+    }
+
+    .back-to-panel:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: white;
+    }
+
+    .back-to-panel i {
+        margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="Logo/Recurso 5.png" alt="Imprenta Cisneros Logo" onerror="this.onerror=null; this.src='/api/placeholder/180/60'; this.alt='Logo de Imprenta Cisneros';">
+                <div>
+                    <h1 class="mb-0"></h1>
+                    <p class="mb-0"></p>
+                </div>
+            </div>
+            <a href="ProcesarPanel.php" class="back-to-panel">
+                <i class="fas fa-arrow-left"></i> Volver al Panel
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <h2><i class="fas fa-plus-circle me-2"></i>Agregar Nuevo Producto</h2>
+            <p class="text-muted">Complete todos los campos necesarios para añadir un nuevo producto al catálogo.</p>
+        </div>
+
+        <form action="AgregarProducto.php" method="POST" enctype="multipart/form-data" id="productoForm">
+            <!-- Información Básica -->
+            <div class="form-section">
+                <h3 class="form-section-title"><i class="fas fa-info-circle"></i>Información Básica</h3>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="nombre" class="form-label">Nombre del Producto<span class="required-indicator">*</span></label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                        <div class="help-text">Asigne un nombre descriptivo y único para el producto.</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="tipo" class="form-label">Tipo de Producto<span class="required-indicator">*</span></label>
+                        <input type="text" id="tipo" name="tipo" class="form-control" required>
+                        <div class="help-text">Categoría o tipo de producto (ej. Tarjeta, Folleto, Banner).</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="precio" class="form-label">Precio ($)<span class="required-indicator">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                            <input type="number" id="precio" name="precio" step="0.01" class="form-control" required>
+                        </div>
+                        <div class="help-text">Precio de venta en pesos mexicanos.</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="genero" class="form-label">Género<span class="required-indicator">*</span></label>
+                        <select id="genero" name="genero" class="form-select" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="Mujer">Mujer</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Unisex">Unisex</option>
+                            <option value="No aplica">No aplica</option>
+                        </select>
+                        <div class="help-text">Seleccione el género al que va dirigido el producto.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Características -->
+            <div class="form-section">
+                <h3 class="form-section-title"><i class="fas fa-ruler"></i>Características y Tamaños</h3>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label class="form-label">Tamaños disponibles:</label>
+                        <div class="help-text mb-2">Especifique hasta 6 dimensiones o tamaños disponibles para este producto.</div>
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                                    <input type="text" name="Tamaño[]" class="form-control" placeholder="Ej. S, 20x30 cm">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                                    <input type="text" name="Tamaño[]" class="form-control" placeholder="Ej. M, 50 cm">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                                    <input type="text" name="Tamaño[]" class="form-control" placeholder="Ej. XL, 25x35 cm">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                                    <input type="text" name="Tamaño[]" class="form-control" placeholder="Otro tamaño">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                                    <input type="text" name="Tamaño[]" class="form-control" placeholder="Otro tamaño">
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-ruler-combined"></i></span>
+                                    <input type="text" name="Tamaño[]" class="form-control" placeholder="Otro tamaño">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="descripcion" class="form-label">Descripción del Producto</label>
+                        <textarea id="descripcion" name="descripcion" class="form-control" rows="4" placeholder="Describe las características, materiales, usos y beneficios del producto..."></textarea>
+                        <div class="help-text">Una descripción detallada ayudará a los clientes a entender mejor el producto.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventario -->
+            <div class="form-section">
+                <h3 class="form-section-title"><i class="fas fa-warehouse"></i>Inventario y Disponibilidad</h3>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="stock" class="form-label">Stock Disponible<span class="required-indicator">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-cubes"></i></span>
+                            <input type="number" id="stock" name="stock" class="form-control" required min="0">
+                        </div>
+                        <div class="help-text">Cantidad de unidades disponibles.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ventas" class="form-label">Ventas Iniciales</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-chart-line"></i></span>
+                            <input type="number" id="ventas" name="ventas" class="form-control" value="0" min="0">
+                        </div>
+                        <div class="help-text">Ventas previas si existen.</div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="disponibilidad" class="form-label">Disponibilidad<span class="required-indicator">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-check-circle"></i></span>
+                            <select id="disponibilidad" name="disponibilidad" class="form-select">
+                                <option value="1">Disponible</option>
+                                <option value="0">No Disponible</option>
+                            </select>
+                        </div>
+                        <div class="help-text">Estado de disponibilidad en tienda.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colores y Visuales -->
+            <div class="form-section">
+                <h3 class="form-section-title"><i class="fas fa-palette"></i>Colores y Visuales</h3>
+                
+                <div class="mb-4">
+                    <label class="form-label">Colores Disponibles:</label>
+                    <div class="help-text mb-2">Seleccione hasta 6 colores disponibles para este producto.</div>
+                    <div class="color-picker-container">
+                        <div class="color-item">
+                            <input type="color" name="colores[]" class="color-picker" value="#ff0000">
+                        </div>
+                        <div class="color-item">
+                            <input type="color" name="colores[]" class="color-picker" value="#0000ff">
+                        </div>
+                        <div class="color-item">
+                            <input type="color" name="colores[]" class="color-picker" value="#008000">
+                        </div>
+                        <div class="color-item">
+                            <input type="color" name="colores[]" class="color-picker" value="#ffff00">
+                        </div>
+                        <div class="color-item">
+                            <input type="color" name="colores[]" class="color-picker" value="#000000">
+                        </div>
+                        <div class="color-item">
+                            <input type="color" name="colores[]" class="color-picker" value="#ffffff">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="form-label">Imágenes del Producto:</label>
+                    <div class="help-text mb-2">Suba hasta 4 imágenes del producto. La primera será la imagen principal.</div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                <input type="file" id="imagen1" name="imagenes[]" class="form-control" accept="image/*" onchange="previewImage(this, 'preview1')">
+                            </div>
+                            <div id="preview1" class="image-preview">
+                                <img class="preview-image" src="" alt="Vista previa">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                <input type="file" id="imagen2" name="imagenes[]" class="form-control" accept="image/*" onchange="previewImage(this, 'preview2')">
+                            </div>
+                            <div id="preview2" class="image-preview">
+                                <img class="preview-image" src="" alt="Vista previa">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                <input type="file" id="imagen3" name="imagenes[]" class="form-control" accept="image/*" onchange="previewImage(this, 'preview3')">
+                            </div>
+                            <div id="preview3" class="image-preview">
+                                <img class="preview-image" src="" alt="Vista previa">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                <input type="file" id="imagen4" name="imagenes[]" class="form-control" accept="image/*" onchange="previewImage(this, 'preview4')">
+                            </div>
+                            <div id="preview4" class="image-preview">
+                                <img class="preview-image" src="" alt="Vista previa">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="actions-container">
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i>Guardar Producto
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <span class="left">Sitio realizado por Huelicatl</span>
+        <span class="right">© 2025 IMPRENTA CISNEROS S. DE R.L. DE C.V</span>
+    </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function previewImage(input, previewId) {
+        const preview = document.getElementById(previewId);
+        const previewImg = preview.querySelector('.preview-image');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            previewImg.src = '';
+            preview.style.display = 'none';
+        }
+    }
+    
+    // Validar formulario antes de enviar
+    document.getElementById('productoForm').addEventListener('submit', function(event) {
+        const nombre = document.getElementById('nombre').value.trim();
+        const precio = document.getElementById('precio').value;
+        const stock = document.getElementById('stock').value;
+        
+        if (nombre === '') {
+            alert('Por favor, ingrese un nombre para el producto.');
+            event.preventDefault();
+            return false;
+        }
+        
+        if (isNaN(precio) || parseFloat(precio) <= 0) {
+            alert('Por favor, ingrese un precio válido mayor a cero.');
+            event.preventDefault();
+            return false;
+        }
+        
+        if (isNaN(stock) || parseInt(stock) < 0) {
+            alert('Por favor, ingrese una cantidad de stock válida.');
+            event.preventDefault();
+            return false;
+        }
+        
+        return true;
+    });
+</script>
+</body>
+</html>
